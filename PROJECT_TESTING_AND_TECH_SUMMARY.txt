@@ -1,0 +1,121 @@
+================================================================================
+     FRANCHISE INVESTMENT DECISION SUPPORT SYSTEM (FDSS)
+              PROJECT ARCHITECTURE, TESTING & TECH STACK REPORT
+================================================================================
+
+1. WHAT ALL TESTING WE HAVE USED IN THE PROJECT (WITH SHORT DESCRIPTIONS)
+--------------------------------------------------------------------------------
+• End-to-End (E2E) Browser UI Testing:
+  Automated browser execution simulating real user interactions (clicking, 
+  typing, navigating, tab switching, and modal opening) with screenshot 
+  and DOM verification.
+
+• Tab-Scoped Session Isolation Testing:
+  Verification ensuring login credentials stored in sessionStorage do not 
+  bleed into other browser tabs, preventing unauthorized access when links 
+  are copied to new tabs.
+
+• Navigation & History (Popstate) Trap Testing:
+  Testing browser Back and Forward button interactions to guarantee that 
+  navigating back while logged in never causes a blank screen, closes active 
+  modals safely, and locks the user within the protected session until the 
+  "Sign Out" button is clicked.
+
+• Client & Server-Side Form Validation Testing:
+  Multi-tier input verification testing regex formats, email structures, 
+  password strengths (min 6 characters), password match popups, 10-digit 
+  phone constraints, and required fields.
+
+• Role-Based Access Control (RBAC) Testing:
+  Security testing ensuring Investor, Franchiser, and Admin portals are strictly 
+  segregated (e.g., rejecting attempts to register admin accounts or access 
+  privileged audit endpoints).
+
+• Trademark & Brand Conflict Algorithmic Testing:
+  Testing string similarity, phonetic matching, and acronym collision algorithms 
+  (Levenshtein distance) to prevent trademark infringement during franchise creation.
+
+• Financial DSS Feasibility Algorithm Testing:
+  Mathematical verification of the 0–100 Feasibility Scoring Engine, Payback 
+  Period (months), Break-Even calculations, ROI percentages, and Capex breakdowns.
+
+• REST API Endpoint & Error Status Code Testing:
+  Integration tests verifying HTTP response codes (200 OK, 400 Bad Request, 
+  401 Unauthorized, 403 Forbidden, 404 Not Found) across all backend endpoints.
+
+• TypeScript Static Analysis & Production Build Testing:
+  Running "tsc --noEmit" and "vite build" to ensure zero syntax, bundling, or 
+  type errors across all React components.
+
+• Django Framework Integrity Checks:
+  Running "python manage.py check" to guarantee zero schema, model, URL, or 
+  runtime syntax conflicts.
+
+
+================================================================================
+2. HOW MANY DATABASE TABLES HAVE WE USED (TOTAL: 23 APPLICATION TABLES)
+--------------------------------------------------------------------------------
+1.  UserProfile (users)                     -> User identities, roles, auth credentials
+2.  InvestorProfile (investor_profiles)     -> Investor net worth, budgets, preferences
+3.  FranchiserProfile (franchiser_profiles) -> Corporate details, GST/tax, brand specs
+4.  Category (categories)                   -> Business categories (F&B, Retail, etc.)
+5.  FranchiseListing (franchise_listings)   -> Detailed brand listing & investment data
+6.  Territory (franchise_territories)       -> Geographic exclusive territory units
+7.  LicenseRequirement (franchise_licenses) -> Regulatory permits (FSSAI, Trade, etc.)
+8.  SectorChallenge (franchise_challenges)  -> Operational risks and mitigation plans
+9.  FranchiseDocument (franchise_documents) -> Vetted compliance documents & FDDs
+10. Favorite (favorites)                    -> Investor bookmarked franchise listings
+11. SavedSearch (saved_searches)            -> Filtered query presets for investors
+12. FeasibilityEvaluation (evaluations)     -> Saved 0-100 DSS feasibility dossiers
+13. Application (applications)              -> Formal investment intent proposals
+14. Contract (contracts)                    -> Digital master franchise agreements
+15. PaymentRecord (payments)                -> Transaction ledger (fees, maintenance)
+16. Conversation (conversations)            -> Direct messaging threads
+17. MessageItem (messages)                  -> Individual real-time chat messages
+18. MeetingItem (meetings)                  -> Scheduled video & physical meetings
+19. Review (reviews)                        -> Ratings & reviews on franchise brands
+20. SupportTicket (support_tickets)         -> Franchiser/Investor helpdesk tickets
+21. FraudReport (fraud_reports)             -> Fraud audit reports & compliance flags
+22. AuditLogItem (audit_logs)               -> Immutable security and audit trail
+23. PlatformSettings (platform_settings)    -> Platform fee rates, quotas, GST rules
+
+
+================================================================================
+3. TECHNOLOGIES USED IN FRONTEND AND BACKEND
+--------------------------------------------------------------------------------
+[FRONTEND TECHNOLOGIES]:
+• Framework & Library:     React 19 (React 19.0.1) & React-DOM
+• Language:                TypeScript 5.8 (Strict type checking)
+• Build Tool & Bundler:    Vite 6.2 (Lightning-fast HMR and Rollup production build)
+• Styling Engine:          TailwindCSS 4.0 / @tailwindcss/vite (Modern styling)
+• Component Utilities:     Vanilla CSS3 with CSS variables & responsive design
+• Iconography:             Lucide-React (High-performance vector SVG icons)
+• UI Animations:           Motion (Framer Motion v12) for smooth micro-animations
+• Storage & State:         SessionStorage API (Strict per-tab security isolation)
+• Routing & Navigation:    Hash Routing (#/) with Window History PushState / PopState
+• Error Resilience:        Custom React Error Boundaries for crash recovery
+
+[BACKEND TECHNOLOGIES]:
+• Core Language:           Python 3.14 / 3.12+
+• Web Framework:           Django 5.0+ (Enterprise-grade Python framework)
+• API Layer:               Django REST Framework (DRF 3.14+) with APIViews
+• Database:                SQLite 3 (Local development) / Relational MySQL 8.0 schema
+• CORS Management:         django-cors-headers 4.3 (Cross-Origin Resource Sharing)
+• Serializers:             DRF ModelSerializers with nested JSON support
+• Security:                Session authentication, role verification, parameter sanitation
+
+
+================================================================================
+4. SUMMARY OF ALL TESTING DONE ON THIS REPOSITORY
+--------------------------------------------------------------------------------
+1. Fixed Session Bleed: Migrated auth storage from origin-wide localStorage to 
+   tab-scoped sessionStorage. Multiple tabs can now open independent sessions.
+2. Fixed Blank Screen on Browser Back: Added popstate history trapping, default 
+   dashboard fallbacks, and error boundaries so pressing Back never breaks the view.
+3. Authenticated Session History Lock: Locked navigation when logged in so users 
+   cannot accidentally exit to about:blank without clicking "Sign Out".
+4. Registration & Login Validation: Comprehensive regex and length validation 
+   preventing empty submissions or invalid emails.
+5. Zero Error Verification: Ran full frontend TypeScript compilation (vite build) 
+   and Django framework system check (manage.py check) with 0 errors.
+================================================================================
